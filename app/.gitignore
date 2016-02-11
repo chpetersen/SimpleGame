@@ -1,1 +1,49 @@
-/build
+# generated files
+bin/
+gen/
+tmp/
+dist/
+proguard/
+
+#lint
+lint.xml
+
+#Mac OS
+.DS_Store
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# Local configuration file (sdk path, etc)
+local.properties
+version.properties
+
+# Eclipse project files
+.classpath
+.project
+.settings
+
+# Android Studio
+.idea/
+.gradle
+/*/local.properties
+/*/out
+/*/*/build
+/*/build
+build/
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+
+# Maven build files
+target/
