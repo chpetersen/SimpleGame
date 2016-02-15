@@ -16,26 +16,39 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     public boolean pauseGame;
     private Background mBackground;
     public float mShipspeed;
+    private Ship mShip;
 
-    public GamePanel(Context context, Game game, int screenWidth) {
+    public GamePanel(Context context, Game game, int screenWidth, int screenHeight) {
         super(context);
         getHolder().addCallback(this);
         mThread = new MyMainThread(getHolder(), this);
         setFocusable(true);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.moon);
-        mBackground = new Background(bitmap, screenWidth, this);
+        Bitmap resized = Bitmap.createScaledBitmap(bitmap, screenWidth, screenHeight, true);
+
+        mBackground = new Background(resized, screenWidth, this);
+        mShip = new Ship(BitmapFactory.decodeResource(getResources(), R.drawable.spaceship),
+                         100, 0, screenWidth, screenHeight);
         mShipspeed = screenWidth / 2.f;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            mShip.mUp = true;
+        }
+
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            mShip.mUp = false;
+        }
+        return true;
     }
 
     void Draw(Canvas canvas) {
         if (!pauseGame) {
             if (canvas != null) {
                 mBackground.draw(canvas);
+                mShip.draw(canvas);
             }
         }
 
@@ -43,6 +56,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     void Update(float dt) {
         mBackground.update(dt);
+        mShip.update(dt);
     }
 
     @Override

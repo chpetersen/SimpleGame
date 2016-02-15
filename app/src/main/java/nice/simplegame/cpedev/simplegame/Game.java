@@ -31,6 +31,7 @@ public class Game extends BaseActivity {
     View.OnClickListener goToMainMenu_listener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            mGamePanel.mThread.setRunning(false);
             Game.this.finish();
         }
     };
@@ -56,7 +57,7 @@ public class Game extends BaseActivity {
         final int height = dm.heightPixels;
         final int width = dm.widthPixels;
 
-        mGamePanel = new GamePanel(getApplicationContext(), this, width);
+        mGamePanel = new GamePanel(getApplicationContext(), this, width, height);
         mMainGameLayout.addView(mGamePanel);
 
 
